@@ -1,0 +1,27 @@
+version: '3.8'
+
+services:
+  app:
+    build:
+      target: production
+    restart: always
+    environment:
+      - APP_ENV=production
+      - APP_DEBUG=false
+
+  nginx:
+    restart: always
+    
+  mysql:
+    restart: always
+    command: --default-authentication-plugin=mysql_native_password --max_connections=500
+    
+  redis:
+    restart: always
+    command: redis-server --appendonly yes --requirepass ${REDIS_PASSWORD:-}
+    
+  queue:
+    restart: always
+    
+  scheduler:
+    restart: always
